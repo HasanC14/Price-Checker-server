@@ -1,20 +1,18 @@
-const chromium = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer-core");
 const express = require("express");
-const app = express();
-const cors = require("cors");
-const port = process.env.PORT || 3000;
-app.use(cors());
-app.use(express.json());
+const puppeteer = require("puppeteer");
 
-const startScraping = async (product) => {
+const cors = require("cors");
+const app = express();
+const PORT = 3000;
+app.use(cors());
+
+const startScraping = async (product, headless) => {
   const results = {};
+
   const browser = await puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
+    headless: headless,
+    defaultViewport: null,
+    args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   const scrapeStarTech = async (page) => {
@@ -300,28 +298,27 @@ const startScraping = async (product) => {
   return results;
 };
 
-app.get("/scrape", async (req, res) => {
-  const { product } = req.query;
+app.get("/", (res) => {
+  res.send("Welcome to the Price Scraper API!");
+});
 
+app.get("/scrape", async (req, res) => {
+  const { product, headless } = req.query;
+  console.log(headless);
   if (!product) {
     return res
       .status(400)
       .send({ error: "Product query parameter is required" });
   }
-
+  const isHeadless = headless === "true";
   try {
-    const results = await startScraping(product);
+    const results = await startScraping(product, isHeadless);
     res.json(results);
   } catch (error) {
-    console.error("Error scraping:", error);
     res.status(500).send({ error: "Error during scraping" });
   }
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
