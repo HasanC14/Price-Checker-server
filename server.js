@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3000;
 app.use(cors());
 
-const startScraping = async (product, headless) => {
+const startScraping = async (product) => {
   const results = {};
 
   const browser = await puppeteer.launch({
@@ -15,9 +15,15 @@ const startScraping = async (product, headless) => {
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-    headless: headless,
-    defaultViewport: null,
-    args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
+    // headless: headless,
+    // defaultViewport: null,
+    // args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
   });
 
   const scrapeStarTech = async (page) => {
@@ -308,16 +314,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/scrape", async (req, res) => {
-  const { product, headless } = req.query;
-  console.log(headless);
+  const { product } = req.query;
+  // console.log(headless);
   if (!product) {
     return res
       .status(400)
       .send({ error: "Product query parameter is required" });
   }
-  const isHeadless = headless === "true";
+  // const isHeadless = headless === "true";
   try {
-    const results = await startScraping(product, isHeadless);
+    const results = await startScraping(product);
     res.json(results);
   } catch (error) {
     res.status(500).send({ error: "Error during scraping" });
