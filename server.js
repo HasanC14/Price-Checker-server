@@ -1,5 +1,6 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
+require("dotenv").config();
 
 const cors = require("cors");
 const app = express();
@@ -10,6 +11,10 @@ const startScraping = async (product, headless) => {
   const results = {};
 
   const browser = await puppeteer.launch({
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
     headless: headless,
     defaultViewport: null,
     args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
