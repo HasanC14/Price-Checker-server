@@ -303,7 +303,7 @@ const startScraping = async (product, headless) => {
   return results;
 };
 
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to the Price Scraper API!");
 });
 
