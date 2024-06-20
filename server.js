@@ -32,13 +32,20 @@ const startScraping = async (product) => {
     try {
       await page.waitForSelector("#search input[name=search]", {
         visible: true,
+        timeout: 60000,
       });
       await page.type("#search input[name=search]", product);
 
-      await page.waitForSelector("#search button", { visible: true });
+      await page.waitForSelector("#search button", {
+        visible: true,
+        timeout: 60000,
+      });
       await page.click("#search button");
 
-      await page.waitForSelector(".main-content", { visible: true });
+      await page.waitForSelector(".main-content", {
+        visible: true,
+        timeout: 60000,
+      });
 
       const products = await page.evaluate(() => {
         const items = Array.from(document.querySelectorAll(".p-item"));
@@ -79,11 +86,13 @@ const startScraping = async (product) => {
 
       await page.waitForSelector(".header-search input[name=search]", {
         visible: true,
+        timeout: 60000,
       });
       await page.type(".header-search input[name=search]", product);
 
       await page.waitForSelector(".header-search button", {
         visible: true,
+        timeout: 60000,
       });
       await page.evaluate(() => {
         document.querySelector(".header-search button").click();
@@ -91,6 +100,7 @@ const startScraping = async (product) => {
 
       await page.waitForSelector(".main-products-wrapper", {
         visible: true,
+        timeout: 60000,
       });
 
       const products = await page.evaluate(() => {
@@ -124,14 +134,21 @@ const startScraping = async (product) => {
     try {
       await page.waitForSelector(".search-input", {
         visible: true,
+        timeout: 60000,
       });
       await page.type(".search-input", product);
 
-      await page.waitForSelector(".search-btn", { visible: true });
+      await page.waitForSelector(".search-btn", {
+        visible: true,
+        timeout: 60000,
+      });
       await page.click(".search-btn");
 
-      // await page.waitForSelector("#search-box-html", { visible: true });
-      await page.waitForSelector(".recent-view-section", { visible: true });
+      // await page.waitForSelector("#search-box-html", { visible: true, timeout: 60000 });
+      await page.waitForSelector(".recent-view-section", {
+        visible: true,
+        timeout: 60000,
+      });
 
       const products = await page.evaluate(() => {
         const items = Array.from(
@@ -166,13 +183,20 @@ const startScraping = async (product) => {
     try {
       await page.waitForSelector("#searchInput", {
         visible: true,
+        timeout: 60000,
       });
       await page.type("#searchInput", product);
 
-      await page.waitForSelector(".new_m_searchbox button", { visible: true });
+      await page.waitForSelector(".new_m_searchbox button", {
+        visible: true,
+        timeout: 60000,
+      });
       await page.click(".new_m_searchbox button");
 
-      await page.waitForSelector(".product_column", { visible: true });
+      await page.waitForSelector(".product_column", {
+        visible: true,
+        timeout: 60000,
+      });
 
       const products = await page.evaluate(() => {
         const items = Array.from(document.querySelectorAll(".single_product"));
@@ -213,14 +237,19 @@ const startScraping = async (product) => {
 
       await page.waitForSelector(".header-search input[name=search]", {
         visible: true,
+        timeout: 60000,
       });
       await page.type(".header-search input[name=search]", product);
 
-      await page.waitForSelector(".header-search button", { visible: true });
+      await page.waitForSelector(".header-search button", {
+        visible: true,
+        timeout: 60000,
+      });
       await page.click(".header-search button");
 
       await page.waitForSelector(".main-products-wrapper", {
         visible: true,
+        timeout: 60000,
       });
 
       const products = await page.evaluate(() => {
@@ -262,14 +291,19 @@ const startScraping = async (product) => {
 
       await page.waitForSelector(".header-search input[name=search]", {
         visible: true,
+        timeout: 60000,
       });
       await page.type(".header-search input[name=search]", product);
 
-      await page.waitForSelector(".header-search button", { visible: true });
+      await page.waitForSelector(".header-search button", {
+        visible: true,
+        timeout: 60000,
+      });
       await page.click(".header-search button");
 
       await page.waitForSelector(".main-products-wrapper", {
         visible: true,
+        timeout: 60000,
       });
 
       const products = await page.evaluate(() => {
