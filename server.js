@@ -91,18 +91,29 @@ const startScraping = async (product) => {
         console.log("No popup found.");
       }
 
-      await page.waitForSelector("#search input[name=search]", {
-        visible: true,
-        timeout: 60000,
-      });
-      await page.type("#search input[name=search]", product);
+      await page.waitForSelector(
+        ".mobile-search-wrapper .header-search input[name=search]",
+        {
+          visible: true,
+          timeout: 60000,
+        }
+      );
+      await page.type(
+        ".mobile-search-wrapper .header-search input[name=search]",
+        product
+      );
 
-      await page.waitForSelector("#search button", {
-        visible: true,
-        timeout: 60000,
-      });
+      await page.waitForSelector(
+        ".mobile-search-wrapper .header-search button",
+        {
+          visible: true,
+          timeout: 60000,
+        }
+      );
       await page.evaluate(() => {
-        document.querySelector("#search button").click();
+        document
+          .querySelector(".mobile-search-wrapper .header-search button")
+          .click();
       });
 
       await page.waitForSelector(".main-products-wrapper", {
