@@ -17,14 +17,14 @@ const startScraping = async (product) => {
         : puppeteer.executablePath(),
     headless: true,
     // defaultViewport: null,
-    // args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
-    args: [
-      "--disable-setuid-sandbox",
-      "--no-sandbox",
-      "--single-process",
-      "--start-maximized",
-      "--no-zygote",
-    ],
+    args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
+    // args: [
+    //   "--disable-setuid-sandbox",
+    //   "--no-sandbox",
+    //   "--single-process",
+    //   "--start-maximized",
+    //   "--no-zygote",
+    // ],
   });
 
   const scrapeStarTech = async (page) => {
