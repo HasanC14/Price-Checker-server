@@ -188,11 +188,11 @@ const startScraping = async (product) => {
     await page.goto("https://www.binarylogic.com.bd/");
 
     try {
-      await page.waitForSelector("#searchInput", {
+      await page.waitForSelector("#searchInput input[name=product_name]", {
         visible: true,
         timeout: 60000,
       });
-      await page.type("#searchInput", product);
+      await page.type("#searchInput input[name=product_name]", product);
 
       await page.waitForSelector(".new_m_searchbox button", {
         visible: true,
