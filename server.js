@@ -333,11 +333,11 @@ const startScraping = async (product) => {
 
   const page = await browser.newPage();
   await scrapeStarTech(page);
-  await scrapeTechLand(page);
-  await scrapeRyans(page);
-  await scrapePcHouse(page);
-  await scrapeUltraTech(page);
-  await scrapeBinary(page);
+  // await scrapeTechLand(page);
+  // await scrapeRyans(page);
+  // await scrapePcHouse(page);
+  // await scrapeUltraTech(page);
+  // await scrapeBinary(page);
 
   await browser.close();
   return results;
