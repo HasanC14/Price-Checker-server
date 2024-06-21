@@ -15,13 +15,14 @@ const startScraping = async (product) => {
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-    // headless: headless,
+    headless: true,
     // defaultViewport: null,
     // args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",
       "--single-process",
+      "--start-maximized",
       "--no-zygote",
     ],
   });
@@ -333,11 +334,11 @@ const startScraping = async (product) => {
 
   const page = await browser.newPage();
   await scrapeStarTech(page);
-  // await scrapeTechLand(page);
-  // await scrapeRyans(page);
-  // await scrapePcHouse(page);
-  // await scrapeUltraTech(page);
-  // await scrapeBinary(page);
+  await scrapeTechLand(page);
+  await scrapeRyans(page);
+  await scrapePcHouse(page);
+  await scrapeUltraTech(page);
+  await scrapeBinary(page);
 
   await browser.close();
   return results;
