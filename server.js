@@ -80,9 +80,11 @@ const startScraping = async (product) => {
   };
 
   const scrapeTechLand = async (page) => {
-    await page.goto("https://www.techlandbd.com/");
-
     try {
+      await page.goto("https://www.techlandbd.com/");
+      console.log("Page loaded.");
+
+      // Close popup if it exists
       const popupButton = await page.$(".popup-container button");
       if (popupButton) {
         await popupButton.click();
@@ -91,26 +93,43 @@ const startScraping = async (product) => {
         console.log("No popup found.");
       }
 
+      // Ensure the page is fully loaded and ready
+      await page.waitForSelector(".header-search", {
+        visible: true,
+        timeout: 60000,
+      });
+      console.log(".header-search found.");
+
+      // Click on the search input to focus
       await page.click(".header-search");
       await page.waitForSelector(".header-search input[name=search]", {
         visible: true,
         timeout: 60000,
       });
-      await page.type(".header-search input[name=search]", product);
+      console.log("Search input focused.");
 
-      await page.waitForSelector(".header-search button", {
+      // Type the product name into the search input
+      await page.type(".header-search input[name=search]", product, {
+        delay: 100,
+      });
+      console.log(`Typed product name: ${product}`);
+
+      // Click the search button
+      await page.waitForSelector(".header-search button.search-button", {
         visible: true,
         timeout: 60000,
       });
-      await page.evaluate(() => {
-        document.querySelector(".header-search button").click();
-      });
+      await page.click(".header-search button.search-button");
+      console.log("Search button clicked.");
 
+      // Wait for the search results to load
       await page.waitForSelector(".main-products-wrapper", {
         visible: true,
         timeout: 60000,
       });
+      console.log("Search results loaded.");
 
+      // Extract product details
       const products = await page.evaluate(() => {
         const items = Array.from(document.querySelectorAll(".product-layout"));
         return items.map((item) => {
@@ -131,6 +150,7 @@ const startScraping = async (product) => {
       });
 
       results["TechLand"] = products;
+      console.log("Products scraped:", products);
     } catch (error) {
       console.error("Error scraping TechLand:", error);
     }
