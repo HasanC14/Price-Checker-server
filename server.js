@@ -339,8 +339,8 @@ const startScraping = async (product) => {
   };
 
   const page = await browser.newPage();
-  await scrapeStarTech(page);
-  // await scrapeTechLand(page);
+  // await scrapeStarTech(page);
+  await scrapeTechLand(page);
   // await scrapeRyans(page);
   // await scrapePcHouse(page);
   // await scrapeUltraTech(page);
