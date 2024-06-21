@@ -31,6 +31,7 @@ const startScraping = async (product) => {
     await page.goto("https://www.startech.com.bd/");
 
     try {
+      await page.click(".search-toggler");
       await page.waitForSelector("#search input[name=search]", {
         visible: true,
         timeout: 60000,
@@ -334,11 +335,11 @@ const startScraping = async (product) => {
 
   const page = await browser.newPage();
   await scrapeStarTech(page);
-  await scrapeTechLand(page);
-  await scrapeRyans(page);
-  await scrapePcHouse(page);
-  await scrapeUltraTech(page);
-  await scrapeBinary(page);
+  // await scrapeTechLand(page);
+  // await scrapeRyans(page);
+  // await scrapePcHouse(page);
+  // await scrapeUltraTech(page);
+  // await scrapeBinary(page);
 
   await browser.close();
   return results;
