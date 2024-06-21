@@ -91,18 +91,18 @@ const startScraping = async (product) => {
         console.log("No popup found.");
       }
 
-      await page.waitForSelector(".header-search input[name=search]", {
+      await page.waitForSelector(".mobile-search-wrapper input[name=search]", {
         visible: true,
         timeout: 60000,
       });
-      await page.type(".header-search input[name=search]", product);
+      await page.type(".mobile-search-wrapper input[name=search]", product);
 
-      await page.waitForSelector(".header-search button", {
+      await page.waitForSelector(".mobile-search-wrapper button", {
         visible: true,
         timeout: 60000,
       });
       await page.evaluate(() => {
-        document.querySelector(".header-search button").click();
+        document.querySelector(".mobile-search-wrapper button").click();
       });
 
       await page.waitForSelector(".main-products-wrapper", {
